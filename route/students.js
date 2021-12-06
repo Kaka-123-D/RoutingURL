@@ -17,6 +17,14 @@ router.get("/", (req, res) => {
   res.json(ret);
 });
 
+router.get("/list", (req, res) => {
+  let ret = {
+    status: "OK",
+    data: [1, 2, 3, 4],
+  };
+  res.json(ret);
+});
+
 router.get("/:id", (req, res) => {
   let id = req.params.id;
   let ret = {
