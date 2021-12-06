@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  body
+    .output
+    | 	Mã sinh viên: 
+    input.msv(type='text')
+    br
+    | 	Họ và tên: 
+    input.hoten(type='text')
+    br
+    button.submit Cập nhật
+    script.
+      document.querySelector("button.submit").onclick = function() {
+      fetch("/students/" + document.querySelector("input.msv").value, {
+      method: "PUT",
+      headers: {"Content-Type": "application/json"},
+      body: '{"msv":"'+document.querySelector("input.msv").value+'","hoten":"'+ document.querySelector("input.hoten").value+'"}'
+      })
+      .then(resp => {
+      if (resp.status == 200) {
+      resp.json()
+      .then(ret => {
+      if (ret.status == "OK")
+      document.querySelector("div.output").innerHTML = JSON.stringify(ret.data);
+      });
+      }
+      });
+      };
